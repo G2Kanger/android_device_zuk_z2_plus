@@ -190,6 +190,9 @@ on charger
     mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
     start hvdcp_opti
 
+on property:sys.boot_completed=1
+    trigger enable-low-power
+
 on class_start:late_start
     write /proc/sys/kernel/sched_boost 1
 

@@ -38,6 +38,11 @@ SDCLANG := true
 SDCLANG_PATH := prebuilts/clang/linux-x86/host/sdclang-3.8/bin
 SDCLANG_LTO_DEFS := device/qcom/common/sdllvm-lto-defs.mk
 
+# Bootanimaion
+TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := msm8996
 TARGET_NO_BOOTLOADER := true

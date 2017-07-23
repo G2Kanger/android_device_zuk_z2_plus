@@ -127,7 +127,8 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8996 \
     memtrack.msm8996 \
     liboverlay \
-    libtinyxml
+    libtinyxml \
+    LGDoze
 
 # Fingerprint
 PRODUCT_PACKAGES += \

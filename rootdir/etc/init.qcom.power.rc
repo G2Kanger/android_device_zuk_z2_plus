@@ -72,6 +72,11 @@ on enable-low-power
 	write /sys/module/msm_thermal/parameters/poll_ms 200
 	write /sys/module/msm_thermal/parameters/temp_threshold 55
 	write /sys/module/msm_thermal/parameters/core_limit_temp_degC 65
+	# Re-enable BCL hotplug
+    write /sys/devices/soc/soc:qcom,bcl/mode "disable"
+    write /sys/devices/soc/soc:qcom,bcl/hotplug_mask 12
+    write /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask 8
+    write /sys/devices/soc/soc:qcom,bcl/mode "enable"
 
     # Disable Adaptive LMK and set other values
 	chmod 666 /sys/module/lowmemorykiller/parameters/minfree

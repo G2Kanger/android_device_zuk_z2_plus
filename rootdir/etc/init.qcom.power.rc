@@ -28,7 +28,7 @@ on boot
     write /dev/voxpopuli/fling_min_freq_big         1036
     write /dev/voxpopuli/fling_min_freq_little      1036
     write /dev/voxpopuli/touch_boost_duration       250
-    write /dev/voxpopuli/touch_boost_topapp         0
+    write /dev/voxpopuli/touch_boost_topapp         1
     write /dev/voxpopuli/touch_min_freq_big         1036
     write /dev/voxpopuli/touch_min_freq_little      1036
     chmod 0644 /dev/voxpopuli/enable_interaction_boost
@@ -62,78 +62,28 @@ on boot
     chmod 0664 /dev/cpuset/camera-daemon/tasks
 
     # Enable sched boost
-    write /proc/sys/kernel/sched_boost 1
+    write /proc/sys/kernel/sched_cfs_boost 1
 
 on enable-low-power
-    # Disable thermal bcl hotplug to switch governor
-    write /sys/module/msm_thermal/core_control/enabled 0
-    write /sys/devices/soc/soc:qcom,bcl/mode "disable"
-    write /sys/devices/soc/soc:qcom,bcl/hotplug_mask 0
-    write /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask 0
-    write /sys/devices/soc/soc:qcom,bcl/mode "enable"
+	# Disable core control
+	write /sys/module/msm_thermal/core_control/enabled 0
+	# Enable Intellithermal, Faux123 <3
+	write /sys/module/msm_thermal/parameters/enabled Y
+	write /sys/module/msm_thermal/parameters/poll_ms 200
+	write /sys/module/msm_thermal/parameters/temp_threshold 55
+	write /sys/module/msm_thermal/parameters/core_limit_temp_degC 65
 
-    # Enable Adaptive LMK
-
-    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    # Disable Adaptive LMK and set other values
+	chmod 666 /sys/module/lowmemorykiller/parameters/minfree
+	write /sys/module/lowmemorykiller/parameters/minfree "19352,29028,38704,48380,58056,67732"
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 0
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
-
-    # Configure governor settings for little cluster
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 19000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 90
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 960000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads 80
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 19000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis 79000
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 307200
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/enable_prediction 1
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/powersave_bias 1
-
-    # Online CPU2
-    write /sys/devices/system/cpu/cpu2/online 1
-
-    # Configure governor settings for big cluster
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load 1
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif 1
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay "19000 1400000:39000 1700000:19000 2100000:79000"
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load 90
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_rate 20000
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq 1248000
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/io_is_busy 1
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads "85 1500000:90 1800000:70 2100000:95"
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/min_sample_time 19000
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis 79000
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 307200
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/ignore_hispeed_on_notif 1
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/enable_prediction 1
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/powersave_bias 1
 
     # EAS: Capping the max frequency of silver core to 1.6GHz
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1593600
 
-    # if EAS is present, switch to schedutil governor (no effect if not EAS)
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "schedutil"
-
-    # Re-enable thermal and BCL hotplug
-    write /sys/module/msm_thermal/core_control/enabled 1
-    write /sys/devices/soc/soc:qcom,bcl/mode "disable"
-    write /sys/devices/soc/soc:qcom,bcl/hotplug_mask 12
-    write /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask 8
-    write /sys/devices/soc/soc:qcom,bcl/mode "enable"
-
-    # Input boost configuration
-    write /sys/module/cpu_boost/parameters/input_boost_freq "0:1324800 2:1324800"
-    write /sys/module/cpu_boost/parameters/input_boost_ms 40
-
     # Setting b.L scheduler parameters
-    write /proc/sys/kernel/sched_boost 0
+	write /proc/sys/kernel/sched_cfs_boost 1
     write /proc/sys/kernel/sched_upmigrate 95
     write /proc/sys/kernel/sched_downmigrate 90
     write /proc/sys/kernel/sched_freq_inc_notify 400000
@@ -173,7 +123,7 @@ on enable-low-power
 
     # Starting io prefetcher service
     start iop
-
+	
 service hvdcp_opti /system/bin/hvdcp_opti
     class main
     user root
@@ -194,16 +144,9 @@ on property:sys.boot_completed=1
     trigger enable-low-power
 
 on class_start:late_start
-    write /proc/sys/kernel/sched_boost 1
-
-
-    trigger enable-low-power
+    write /proc/sys/kernel/sched_cfs_boost 1
 
 on property:init.svc.recovery=running
     trigger enable-low-power
 
-on property:dev.bootcomplete=1
-    write /proc/sys/kernel/sched_boost 0
-
-
-    setprop sys.io.scheduler "bfq"
+    setprop sys.io.scheduler "maple"

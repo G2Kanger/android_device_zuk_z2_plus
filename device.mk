@@ -23,6 +23,8 @@
 
 $(call inherit-product-if-exists, vendor/zuk/z2_plus/z2_plus-vendor.mk)
 
+TARGET_PREBUILT_KERNEL="../../../kernel/zuk/out/arch/arm64/boot/Image.gz-dtb"
+
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 

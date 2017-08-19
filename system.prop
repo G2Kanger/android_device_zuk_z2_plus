@@ -37,7 +37,6 @@ persist.camera.llc=1
 persist.camera.llnoise=1
 persist.camera.stats.test=0
 camera.disable_zsl_mode=1
-camera.hal1.packagelist=com.skype.raider,com.whatsapp,com.google.android.GoogleCamera
 
 # CNE
 persist.cne.feature=1

@@ -18,8 +18,8 @@
 
 set -e
 
-DEVICE=z2_plus
-VENDOR=zuk
+DEVICE=zuk
+VENDOR=z2_plus
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"

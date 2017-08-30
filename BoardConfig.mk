@@ -77,6 +77,9 @@ TARGET_KERNEL_SOURCE := kernel/zuk/msm8996
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
 
+# RIL		
+TARGET_RIL_VARIANT := aosp
+
 # Audio
 AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
 AUDIO_FEATURE_ENABLED_ACDB_LICENSE := true
@@ -189,7 +192,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
--include device/voxpopuli/sepolicy/sepolicy.mk
+include device/voxpopuli/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 

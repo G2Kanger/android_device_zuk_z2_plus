@@ -17,7 +17,7 @@ on boot
     write /dev/stune/background/schedtune.boost -100
     write /dev/stune/top-app/schedtune.prefer_idle 0
     write /dev/stune/top-app/schedtune.boost 5
-    write /dev/stune/schedtune.prefer_idle 0
+    write /dev/stune/schedtune.prefer_idle 1
     write /dev/stune/schedtune.boost -5
 
     # Set Power HAL tunables
@@ -83,9 +83,9 @@ on enable-low-power
 	write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "schedutil"
 	write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 307200
 	write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 307200
-	write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 25000
-	write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 1000
-	write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us 10000
+	write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 10000
+	write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 2000
+	write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us 5000
 	write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us 2000
 
     # Enable bus-dcvs

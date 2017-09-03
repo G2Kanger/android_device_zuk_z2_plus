@@ -53,8 +53,12 @@ ro.product.first_api_level=23
 # Display (Qualcomm AD)
 ro.qualcomm.cabl=2
 ro.qcom.ad=1
-ro.qcom.ad.calib.data=/system/etc/calib.cfg
 ro.qcom.ad.sensortype=2
+
+# Display power reduction (FOSS)
+ro.qcom.dpps.sensortype=3
+ro.qualcomm.display.paneltype=1
+ro.qualcomm.foss=1
 
 # Fingerprint
 persist.qfp=false
@@ -142,9 +146,6 @@ persist.data.df.agg.dl_size=4096
 persist.data.df.mux_count=8
 persist.data.df.iwlan_mux=9
 persist.data.df.dev_name=rmnet_usb0
-
-# Storage
-persist.fuse_sdcard=true
 
 # TimeService
 persist.timed.enable=true

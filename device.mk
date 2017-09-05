@@ -214,35 +214,12 @@ PRODUCT_COPY_FILES += \
 # Miracast
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.wfd.enable=1
-
-# Override heap growth limit due to high display density on device
-PRODUCT_PROPERTY_OVERRIDES += \
-	dalvik.vm.heapgrowthlimit=256m \
-	dalvik.vm.heapminfree=2m \
-	ro.telephony.default_cdma_sub=0 \
-	ro.hwui.text_small_cache_width=1024 \
-	ro.hwui.text_small_cache_height=1024 \
-	ro.hwui.text_large_cache_width=2048 \
-	ro.hwui.text_large_cache_height=2048
 	
 # LTE, CDMA, GSM/WCDMA
 PRODUCT_PROPERTY_OVERRIDES += \
+	ro.telephony.default_cdma_sub=0 \
 	ro.telephony.default_network=10 \
 	telephony.lteOnCdmaDevice=1
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	persist.cne.feature=1 \
-	persist.radio.data_ltd_sys_ind=1 \
-	persist.radio.is_wps_enabled=true \
-	persist.radio.RATE_ADAPT_ENABLE=1 \
-	persist.radio.ROTATION_ENABLE=1 \
-	persist.radio.sw_mbn_update=1 \
-	persist.radio.videopause.mode=1 \
-	persist.radio.VT_ENABLE=1 \
-	persist.radio.VT_HYBRID_ENABLE=1 \
-	persist.radio.data_con_rprt=true \
-	persist.rcs.supported=1 \
-	rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 
 # OMX
 PRODUCT_PACKAGES += \

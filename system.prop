@@ -165,8 +165,8 @@ persist.sys.usb.config=mtp,adb
 
 # Higher fling velocities
 # for smoother scrolling and better responsiveness
-ro.min.fling_velocity=160
-ro.max.fling_velocity=20000
+ro.min.fling_velocity=180
+ro.max.fling_velocity=40000
 
 # Hardware Info
 ro.device.chipset=Qualcomm MSM8996 Snapdragon 820

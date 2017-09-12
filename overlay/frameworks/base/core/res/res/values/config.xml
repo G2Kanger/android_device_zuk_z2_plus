@@ -33,6 +33,7 @@
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
         <item>1</item>        <!-- pitch black -->
+		<item>5</item>
         <item>11</item>       <!-- dark indoor -->
         <item>25</item>       <!-- twilight -->
         <item>50</item>       <!-- dim indoor -->
@@ -52,6 +53,7 @@
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
         <item>7</item>
+		<item>10</item>
         <item>12</item>
         <item>17</item>
         <item>29</item>

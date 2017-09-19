@@ -506,8 +506,7 @@ service fingerprintd /system/bin/fingerprintd
     class late_start
     user system
     group system
-    writepid /dev/cpuset/system-background/tasks
-
+	
 service qvop-daemon /system/bin/qvop-daemon
     class late_start
     user system
